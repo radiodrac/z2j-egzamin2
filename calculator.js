@@ -25,6 +25,31 @@ function calcModulo(operand1, operand2) {
     );
 }
 
+function calculate(operand1, operator, operand2) {
+    let result;
+    switch (operator) {
+        case "+":
+            result = calcSum(operand1, operand2);
+            break;
+        case "-":
+            result = calcSubtract(operand1, operand2);
+            break;
+        case "*":
+            result = calcMultiply(operand1, operand2);
+            break;
+        case "/":
+            result = calcDivide(operand1, operand2);
+            break;
+        case "%":
+            result = calcModulo(operand1, operand2);
+            break;
+        default:
+            result = "Nieobsługiwany operator";
+    }
+    
+    return result;
+}
+
 operand1 = +prompt("Podaj pierwszą liczbę");
 
 if (isNaN(operand1)) {
@@ -36,20 +61,10 @@ if (isNaN(operand1)) {
     
     if (isNaN(operand2)) {
         alert(error);
-
-    } else if (operator === "+") {
-        result = calcSum(operand1, operand2);
-    } else if (operator === "-") {
-        result = calcSubtract(operand1, operand2);
-    } else if (operator === "*") {
-        result = calcMultiply(operand1, operand2);
-    } else if (operator === "/") {
-        result = calcDivide(operand1, operand2);
-    } else if (operator === "%") {
-        result = calcModulo(operand1, operand2);
-    } else {
-        result = "Nieobsługiwany operator";
     }
 
+    result = calculate(operand1, operator, operand2);
+
     alert(result);
+    
 }
