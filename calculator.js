@@ -50,21 +50,26 @@ function calculate(operand1, operator, operand2) {
     return result;
 }
 
-operand1 = +prompt("Podaj pierwszą liczbę");
+function performCalculation() {
 
-if (isNaN(operand1)) {
-    alert(error);
+    operand1 = +prompt("Podaj pierwszą liczbę");
 
-} else {
-    operator = prompt("Podaj operator arytmetyczny (+, -, *, / lub %)");
-    operand2 = +prompt("Podaj drugą liczbę");
-    
-    if (isNaN(operand2)) {
+    if (isNaN(operand1)) {
         alert(error);
+
+    } else {
+        operator = prompt("Podaj operator arytmetyczny (+, -, *, / lub %)");
+        operand2 = +prompt("Podaj drugą liczbę");
+        
+        if (isNaN(operand2)) {
+            alert(error);
+        }
+
+        result = calculate(operand1, operator, operand2);
+
+        alert(result);
+        
     }
-
-    result = calculate(operand1, operator, operand2);
-
-    alert(result);
-    
 }
+
+performCalculation();
