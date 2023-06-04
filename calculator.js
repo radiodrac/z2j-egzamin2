@@ -50,26 +50,36 @@ function calculate(operand1, operator, operand2) {
     return result;
 }
 
+// Prompt for user input until it's a number:
+
+function getUserInput(promptMessage, errorMessage) {
+    const input = prompt(promptMessage);
+    console.log("User input: " + input);
+
+    if (input === null) {
+        return;
+    } else if (input === "") {
+        return getUserInput(promptMessage, errorMessage);
+    } else if (isNaN(input)) {
+        alert(errorMessage);
+        return getUserInput(promptMessage, errorMessage);
+    } else {
+        return input;
+    }
+}
+
 function performCalculation() {
 
-    operand1 = +prompt("Podaj pierwszą liczbę");
+    operand1 = +getUserInput("Podaj pierwszą liczbę", error);
+    console.log("operand1 = " + operand1 + " " + typeof(operand1));
+    operator = prompt("Podaj operator arytmetyczny (+, -, *, / lub %)");
+    operand2 = +getUserInput("Podaj drugą liczbę", error);
+    console.log("operand2 = " + operand2 + " " + typeof(operand2));
 
-    if (isNaN(operand1)) {
-        alert(error);
+    result = calculate(operand1, operator, operand2);
+    console.log("result = " + result);
 
-    } else {
-        operator = prompt("Podaj operator arytmetyczny (+, -, *, / lub %)");
-        operand2 = +prompt("Podaj drugą liczbę");
-        
-        if (isNaN(operand2)) {
-            alert(error);
-        }
-
-        result = calculate(operand1, operator, operand2);
-
-        alert(result);
-        
-    }
+    alert(result);  
 }
 
 performCalculation();
