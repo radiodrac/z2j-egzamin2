@@ -58,6 +58,7 @@ function getUserInput(promptMessage, errorMessage) {
         const input = prompt(promptMessage);
 
         if (input === null) {
+            alert("Anulowano.");
             return null;
         } else if (input === "") {
             continue;
@@ -78,6 +79,7 @@ function getOperator(promptMessage, errorMessage) {
         const operator = prompt(promptMessage);
         
         if (operator === null) {
+            alert("Anulowano.");
             return null;
         } else if (operators.includes(operator)) {
             return operator;
@@ -87,40 +89,34 @@ function getOperator(promptMessage, errorMessage) {
     }
 }
 
-// Cancel alert if input canceled
-
-function cancel(input) {
-    if (input === null) {
-        alert("Anulowano.");
-        return true;
-    }
-}
-
 function performCalculation() {
-    const error = "Błąd! Należy podać liczbę.";
+    const errorOperand = "Błąd! Należy podać liczbę.";
+    const promptOperator = "Podaj operator arytmetyczny (+, -, *, / lub %) lub pozostaw puste, aby zakończyć obliczenia.";
+    const errorOperator = "Nieobsługiwany operator.";
     let operand1, operand2, operator, result;
 
-    operand1 = getUserInput("Podaj pierwszą liczbę:", error);
-    if (cancel(operand1)) return;
+    operand1 = getUserInput("Podaj pierwszą liczbę:", errorOperand);
+    if (operand1 === null) return;
     result = operand1;
-    operator = getOperator("Podaj operator arytmetyczny (+, -, *, / lub %) lub pozostaw puste, aby zakończyć obliczenia.", "Nieobsługiwany operator.");
-    if (cancel(operator)) return;
+    operator = getOperator(promptOperator, errorOperator);
+    if (operator === null) return;
+
+    // Multiple calculations loop
     
     while (!["=",""].includes(operator)) {
-        operand2 = getUserInput("Podaj kolejną liczbę:", error);
-        if (cancel(operand2)) return;
+        operand2 = getUserInput("Podaj kolejną liczbę:", errorOperand);
+        if (operand2 === null) return;
         operand1 = result;
 
         result = calculate(result, operator, operand2);
         console.log(result);
         alert(operand1 + " " + operator + " " + operand2 + " = " + result);
 
-        operator = getOperator("Podaj operator arytmetyczny (+, -, *, / lub %) lub pozostaw puste, aby zakończyć obliczenia.", "Nieobsługiwany operator.");
-        if (cancel(operator)) return;
+        operator = getOperator(promptOperator, errorOperator);
+        if (operator === null) return;
     }
 
     alert("Wynik: " + result);
-    
 }
 
 performCalculation();
