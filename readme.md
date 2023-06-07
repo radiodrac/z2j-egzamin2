@@ -4,7 +4,7 @@
 
 https://radiodrac.github.io/z2j-egzamin2/
 
-### Description:
+## Description:
 
 A simple JavaScript calculator. Supports addition, subtraction, multiplication, division and modulo operations.
 
