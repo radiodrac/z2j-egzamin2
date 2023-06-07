@@ -72,7 +72,7 @@ function getUserInput(promptMessage, errorMessage) {
 // Prompt for an operator until it's correct or prompt window is canceled:
 
 function getOperator(promptMessage, errorMessage) {
-    const operators = ["+", "-", "*", "/", "%"];
+    const operators = ["+", "-", "*", "/", "%", "=", ""];
 
     while (true) {
         const operator = prompt(promptMessage);
@@ -87,21 +87,31 @@ function getOperator(promptMessage, errorMessage) {
     }
 }
 
+// Cancel alert if input canceled
+
+function cancel(input) {
+    if (input === null) {
+        alert("Anulowano.");
+        return true;
+    }
+}
+
 function performCalculation() {
     const error = "Błąd! Należy podać liczbę.";
     let operand1, operand2, operator, result;
 
     operand1 = getUserInput("Podaj pierwszą liczbę", error);
-    if (operand1 === null) return;
+    if (cancel(operand1)) return;
     result = operand1;
-    operator = getOperator("Podaj operator arytmetyczny (+, -, *, / lub %)", "Nieobsługiwany operator");
-    if (operator === null) return;
-    operand2 = getUserInput("Podaj drugą liczbę", error);
-    if (operand2 === null) return;
+    operator = getOperator("Podaj operator arytmetyczny (+, -, *, / lub %) lub pozostaw puste, aby zakończyć obliczenia", "Nieobsługiwany operator");
+    if (cancel(operator)) return;
+    if (!["=",""].includes(operator)) {
+    operand2 = getUserInput("Podaj kolejną liczbę", error);
+    if (cancel(operand2)) return;
 
     result = calculate(operand1, operator, operand2);
-
-    alert(result);  
+    }
+    alert(result);
 }
 
 performCalculation();
