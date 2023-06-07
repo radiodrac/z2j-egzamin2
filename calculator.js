@@ -100,18 +100,27 @@ function performCalculation() {
     const error = "Błąd! Należy podać liczbę.";
     let operand1, operand2, operator, result;
 
-    operand1 = getUserInput("Podaj pierwszą liczbę", error);
+    operand1 = getUserInput("Podaj pierwszą liczbę:", error);
     if (cancel(operand1)) return;
     result = operand1;
-    operator = getOperator("Podaj operator arytmetyczny (+, -, *, / lub %) lub pozostaw puste, aby zakończyć obliczenia", "Nieobsługiwany operator");
+    operator = getOperator("Podaj operator arytmetyczny (+, -, *, / lub %) lub pozostaw puste, aby zakończyć obliczenia.", "Nieobsługiwany operator.");
     if (cancel(operator)) return;
-    if (!["=",""].includes(operator)) {
-    operand2 = getUserInput("Podaj kolejną liczbę", error);
-    if (cancel(operand2)) return;
+    
+    while (!["=",""].includes(operator)) {
+        operand2 = getUserInput("Podaj kolejną liczbę:", error);
+        if (cancel(operand2)) return;
+        operand1 = result;
 
-    result = calculate(operand1, operator, operand2);
+        result = calculate(result, operator, operand2);
+        console.log(result);
+        alert(operand1 + " " + operator + " " + operand2 + " = " + result);
+
+        operator = getOperator("Podaj operator arytmetyczny (+, -, *, / lub %) lub pozostaw puste, aby zakończyć obliczenia.", "Nieobsługiwany operator.");
+        if (cancel(operator)) return;
     }
-    alert(result);
+
+    alert("Wynik: " + result);
+    
 }
 
 performCalculation();
