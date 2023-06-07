@@ -58,6 +58,7 @@ function getUserInput(promptMessage, errorMessage) {
         const input = prompt(promptMessage);
 
         if (input === null) {
+            alert("Anulowano.");
             return null;
         } else if (input === "") {
             continue;
@@ -72,12 +73,13 @@ function getUserInput(promptMessage, errorMessage) {
 // Prompt for an operator until it's correct or prompt window is canceled:
 
 function getOperator(promptMessage, errorMessage) {
-    const operators = ["+", "-", "*", "/", "%"];
+    const operators = ["+", "-", "*", "/", "%", "=", ""];
 
     while (true) {
         const operator = prompt(promptMessage);
         
         if (operator === null) {
+            alert("Anulowano.");
             return null;
         } else if (operators.includes(operator)) {
             return operator;
@@ -88,20 +90,33 @@ function getOperator(promptMessage, errorMessage) {
 }
 
 function performCalculation() {
-    const error = "Błąd! Należy podać liczbę.";
+    const errorOperand = "Błąd! Należy podać liczbę.";
+    const promptOperator = "Podaj operator arytmetyczny (+, -, *, / lub %) lub pozostaw puste, aby zakończyć obliczenia.";
+    const errorOperator = "Nieobsługiwany operator.";
     let operand1, operand2, operator, result;
 
-    operand1 = getUserInput("Podaj pierwszą liczbę", error);
+    operand1 = getUserInput("Podaj pierwszą liczbę:", errorOperand);
     if (operand1 === null) return;
     result = operand1;
-    operator = getOperator("Podaj operator arytmetyczny (+, -, *, / lub %)", "Nieobsługiwany operator");
+    operator = getOperator(promptOperator, errorOperator);
     if (operator === null) return;
-    operand2 = getUserInput("Podaj drugą liczbę", error);
-    if (operand2 === null) return;
 
-    result = calculate(operand1, operator, operand2);
+    // Multiple calculations loop
+    
+    while (!["=",""].includes(operator)) {
+        operand2 = getUserInput("Podaj kolejną liczbę:", errorOperand);
+        if (operand2 === null) return;
+        operand1 = result;
 
-    alert(result);  
+        result = calculate(result, operator, operand2);
+        console.log(result);
+        alert(operand1 + " " + operator + " " + operand2 + " = " + result);
+
+        operator = getOperator(promptOperator, errorOperator);
+        if (operator === null) return;
+    }
+
+    alert("Wynik: " + result);
 }
 
 performCalculation();
