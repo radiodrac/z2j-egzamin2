@@ -2,9 +2,17 @@
 
 ## Deploy:
 
+https://radiodrac.github.io/z2j-egzamin2/
 
+### Description:
 
-## Zadanie:
+A simple JavaScript calculator. Supports addition, subtraction, multiplication, division and modulo operations.
+
+- user input validation
+- multiple consecutive operations support
+- division by zero handling
+
+## Task (Polish):
 
  Rozbudujesz kalkulator z lekcji trzeciej 🙂
  
